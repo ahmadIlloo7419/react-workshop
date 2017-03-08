@@ -11,14 +11,19 @@ export default class ProductManager extends React.Component {
     constructor(){
         super();
         this.state = {
-            products : productsList
+            products : productsList.products
         };
+        //
+        this.addProduct = this.addProduct.bind(this);
     }
-
+    addProduct(productInformation){
+        this.setState({products:[...this.state.products,productInformation]});
+    }
     render(){
         return(
             <div>
-                <AddProduct />
+                <AddProduct
+                    addProduct={this.addProduct}/>
                 <PageTitle />
                 <ShowProducts
                     productList={this.state.products}/>

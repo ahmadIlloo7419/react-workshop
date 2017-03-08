@@ -21763,15 +21763,20 @@ class ProductManager extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
     constructor() {
         super();
         this.state = {
-            products: __WEBPACK_IMPORTED_MODULE_4__data__["a" /* productsList */]
+            products: __WEBPACK_IMPORTED_MODULE_4__data__["a" /* productsList */].products
         };
+        //
+        this.addProduct = this.addProduct.bind(this);
     }
-
+    addProduct(productInformation) {
+        this.setState({ products: [...this.state.products, productInformation] });
+    }
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], {
+                addProduct: this.addProduct }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__PageTitle__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ShowProducts__["a" /* default */], {
                 productList: this.state.products })
@@ -21803,6 +21808,7 @@ class ClassName extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
         //
         this.toggleModal = this.toggleModal.bind(this);
         this.changeFieldHandler = this.changeFieldHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
     }
     toggleModal() {
         this.setState({ isShow: !this.state.isShow });
@@ -21810,6 +21816,10 @@ class ClassName extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     changeFieldHandler(event) {
         const data = { [event.target.id]: event.target.value };
         this.setState({ formValues: Object.assign({}, this.state.formValues, data) });
+    }
+    submitHandler() {
+        this.toggleModal();
+        this.props.addProduct(this.state.formValues);
     }
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -21868,7 +21878,7 @@ class ClassName extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
-                        null,
+                        { onClick: this.submitHandler },
                         'SAVE'
                     )
                 )
@@ -21921,7 +21931,7 @@ class ShowProducts extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'container' },
-            this.props.productList.products.map((product, counter) => {
+            this.props.productList.map((product, counter) => {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'product', key: "productNO_" + counter },

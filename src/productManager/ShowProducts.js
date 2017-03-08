@@ -6,7 +6,7 @@ export default class ShowProducts extends React.Component {
         return (
             <div className="container">
                 {
-                    this.props.productList.products.map(
+                    this.props.productList.map(
                         (product,counter)=>{
                             return (
                                 <div className="product" key={"productNO_"+counter}>

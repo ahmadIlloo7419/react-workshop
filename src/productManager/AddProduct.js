@@ -11,6 +11,7 @@ export default class ClassName extends React.Component {
         //
         this.toggleModal = this.toggleModal.bind(this);
         this.changeFieldHandler = this.changeFieldHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
     }
     toggleModal(){
         this.setState({isShow:!this.state.isShow});
@@ -18,6 +19,10 @@ export default class ClassName extends React.Component {
     changeFieldHandler(event){
         const data  = {[event.target.id] : event.target.value};
         this.setState({formValues : Object.assign({},this.state.formValues,data)});
+    }
+    submitHandler(){
+        this.toggleModal();
+        this.props.addProduct(this.state.formValues);
     }
     render() {
         return (
@@ -41,7 +46,7 @@ export default class ClassName extends React.Component {
                             <label htmlFor="imagePath">Image :</label>
                             <input type="text" placeholder="Image path... " id="imagePath"  onChange={this.changeFieldHandler}/>
                         </span>
-                        <button >SAVE</button>
+                        <button onClick={this.submitHandler}>SAVE</button>
                     </div>
 
                 </div>

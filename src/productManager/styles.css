@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    width:80%;
+    flex-direction:row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: space-between;
+}
+
+.product {
+    order:1;
+    flex-grow:0;
+    max-width:20%;
+    cursor: pointer;
+    background-color: #EAE7FF;
+    padding: 10px;
+    margin:20px auto;
+}
+
+.product > img {
+    max-width:80%;
+}
+
+.btn {
+    width : 50px;
+    height : 15px;
+    border:none;
+}
+
+.modal-container {
+    display: block;
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-color: rgba(0,0,0,.4);
+    z-index: 1000;
+    text-align: center;
+}
+
+.modal-container > .content {
+    width : 80%;
+    height: auto;
+    min-height: 300px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+}
+
+.modal-container > .content > .formElement {
+    width:80%;
+    height:20px;
+    margin:5px auto;
+    display: block;
+    text-align: center;
+}
+.modal-container > .content > .formElement > label {
+    width:10%;
+    height: 100%;
+    font-size: 13px;
+    text-align: center;
+    display: inline-block;
+}
+.modal-container > .content > .formElement > input {
+    width : 50%;
+    height: 100%;
+    display: inline-block;
+    font-size: 13px;
+    text-indent:5px;
+}
+.modal-container > .content > button {
+    width: 50px;
+    display: inline-block;
+    height: 30px;
+    background-color: #dedede;
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+.modal-container > .content > i {
+    float: right;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    background-color: #ff4343;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    vertical-align: bottom;
+    line-height: 25px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}

@@ -22385,18 +22385,16 @@ class ClassName extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     constructor() {
         super();
         this.state = {
-            formValues: { name: "", price: "", imagePath: "" }
+            formValues: {}
         };
         //
         this.changeFieldHandler = this.changeFieldHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
     }
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-        console.log(this.state);
-        //if(nextProps.productInformation.name != this.state.formValues.name){
-        this.setState({ formValues: nextProps.formValues });
-        //}
+        if (nextProps.productInformation.name != this.state.formValues.name) {
+            this.setState({ formValues: nextProps.productInformation });
+        }
     }
     changeFieldHandler(event) {
         const data = { [event.target.id]: event.target.value };

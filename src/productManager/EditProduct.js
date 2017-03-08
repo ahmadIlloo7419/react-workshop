@@ -5,18 +5,16 @@ export default class ClassName extends React.Component {
     constructor(){
         super();
         this.state = {
-            formValues : {name:"",price:"",imagePath:""}
+            formValues : {}
         };
         //
         this.changeFieldHandler = this.changeFieldHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
     }
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
-        console.log(this.state);
-        //if(nextProps.productInformation.name != this.state.formValues.name){
-            this.setState({formValues:nextProps.formValues})
-        //}
+        if(nextProps.productInformation.name != this.state.formValues.name){
+            this.setState({formValues:nextProps.productInformation})
+        }
     }
     changeFieldHandler(event){
         const data  = {[event.target.id] : event.target.value};

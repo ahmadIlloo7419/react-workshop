@@ -11,6 +11,7 @@ export default class RegisterField extends React.Component {
                 <input
                     type="text"
                     placeholder={this.props.label}
+                    id={this.props.id}
                     onChange={this.props.onChange}/>
             </div>
         )

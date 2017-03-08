@@ -8,34 +8,44 @@ export default class RegisterForm extends React.Component {
     constructor(){
         super();
         this.state = {
-            formValue : ""
+            formValue : {}
         };
         //
         this.saveInputs = this.saveInputs.bind(this);
     }
     saveInputs(event){
-        this.setState({formValue:event.target.value});
+        const data = {[event.target.id]:event.target.value};
+        this.setState(
+            {
+                formValue:Object.assign({},this.state.formValue,data)
+            }
+        );
     }
     render(){
         return(
             <div>
                 <RegisterField
                     label="first name :"
+                    id="firstName"
                     onChange={this.saveInputs}/>
                 <RegisterField
                     label="last name :"
+                    id="lastName"
                     onChange={this.saveInputs}/>
                 <RegisterField
                     label="age :"
+                    id="age"
                     onChange={this.saveInputs}/>
                 <RegisterField
                     label="address :"
+                    id="address"
                     onChange={this.saveInputs}/>
                 <RegisterField
                     label="phone :"
+                    id="phone"
                     onChange={this.saveInputs}/>
 
-                {this.state.formValue}
+                {JSON.stringify(this.state.formValue)}
 
             </div>
         )

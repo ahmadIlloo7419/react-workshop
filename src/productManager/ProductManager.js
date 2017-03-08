@@ -5,15 +5,23 @@ import React from 'react';
 import PageTitle from './PageTitle';
 import ShowProducts from './ShowProducts'
 import AddProduct from './AddProduct'
+import {productsList} from './data';
 
 export default class ProductManager extends React.Component {
-    render(){
+    constructor(){
+        super();
+        this.state = {
+            products : productsList
+        };
+    }
 
+    render(){
         return(
             <div>
                 <AddProduct />
                 <PageTitle />
-                <ShowProducts />
+                <ShowProducts
+                    productList={this.state.products}/>
             </div>
         )
     }

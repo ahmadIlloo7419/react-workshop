@@ -21749,6 +21749,7 @@ if(false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PageTitle__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ShowProducts__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddProduct__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__data__ = __webpack_require__(185);
 /**
  * Created by ahmad on 3/7/2017.
  */
@@ -21757,15 +21758,23 @@ if(false) {
 
 
 
-class ProductManager extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-    render() {
 
+class ProductManager extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor() {
+        super();
+        this.state = {
+            products: __WEBPACK_IMPORTED_MODULE_4__data__["a" /* productsList */]
+        };
+    }
+
+    render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__PageTitle__["a" /* default */], null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ShowProducts__["a" /* default */], null)
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ShowProducts__["a" /* default */], {
+                productList: this.state.products })
         );
     }
 }
@@ -21788,13 +21797,19 @@ class ClassName extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     constructor() {
         super();
         this.state = {
-            isShow: false
+            isShow: false,
+            formValues: {}
         };
         //
         this.toggleModal = this.toggleModal.bind(this);
+        this.changeFieldHandler = this.changeFieldHandler.bind(this);
     }
     toggleModal() {
         this.setState({ isShow: !this.state.isShow });
+    }
+    changeFieldHandler(event) {
+        const data = { [event.target.id]: event.target.value };
+        this.setState({ formValues: Object.assign({}, this.state.formValues, data) });
     }
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -21826,10 +21841,30 @@ class ClassName extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
                         { className: 'formElement' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'label',
-                            { htmlFor: '' },
+                            { htmlFor: 'name' },
                             'Name :'
                         ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Name... ' })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Name... ', id: 'name', onChange: this.changeFieldHandler })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'formElement' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'price' },
+                            'Price :'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Price... ', id: 'price', onChange: this.changeFieldHandler })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'formElement' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'imagePath' },
+                            'Image :'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Image path... ', id: 'imagePath', onChange: this.changeFieldHandler })
                     ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'button',
@@ -21876,10 +21911,8 @@ class PageTitle extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__data__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__styles_css__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__styles_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__styles_css__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_css__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_css__);
 
 
 
@@ -21888,7 +21921,7 @@ class ShowProducts extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'container' },
-            __WEBPACK_IMPORTED_MODULE_1__data__["a" /* productsList */].products.map((product, counter) => {
+            this.props.productList.products.map((product, counter) => {
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'product', key: "productNO_" + counter },

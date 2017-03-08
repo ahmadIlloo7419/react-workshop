@@ -1,5 +1,4 @@
 import React from 'react';
-import {productsList} from './data';
 import './styles.css';
 
 export default class ShowProducts extends React.Component {
@@ -7,7 +6,7 @@ export default class ShowProducts extends React.Component {
         return (
             <div className="container">
                 {
-                    productsList.products.map(
+                    this.props.productList.products.map(
                         (product,counter)=>{
                             return (
                                 <div className="product" key={"productNO_"+counter}>

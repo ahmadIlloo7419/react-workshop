@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import {render} from 'react-dom';
-import RegisterForm from './forms/RegisterForm';
-//import ProductManager from './productManager/ProductManager';
+//import RegisterForm from './forms/RegisterForm';
+import ProductManager from './productManager/ProductManager';
 
 class App extends React.Component {
     constructor() {
@@ -14,7 +14,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-               <RegisterForm />
+               <ProductManager />
             </div>
         );
     }

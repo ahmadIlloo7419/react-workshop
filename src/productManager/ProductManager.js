@@ -8,6 +8,7 @@ import AddProduct from './AddProduct'
 
 export default class ProductManager extends React.Component {
     render(){
+
         return(
             <div>
                 <AddProduct />

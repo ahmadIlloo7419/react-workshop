@@ -21749,10 +21749,12 @@ if(false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__PageTitle__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ShowProducts__ = __webpack_require__(184);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddProduct__ = __webpack_require__(182);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__data__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__EditProduct__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data__ = __webpack_require__(185);
 /**
  * Created by ahmad on 3/7/2017.
  */
+
 
 
 
@@ -21763,13 +21765,39 @@ class ProductManager extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
     constructor() {
         super();
         this.state = {
-            products: __WEBPACK_IMPORTED_MODULE_4__data__["a" /* productsList */].products
+            products: __WEBPACK_IMPORTED_MODULE_5__data__["a" /* productsList */].products,
+            isShowEdit: false,
+            editedProductInformation: {}
         };
         //
         this.addProduct = this.addProduct.bind(this);
+        this.removeProduct = this.removeProduct.bind(this);
+        this.showEditProduct = this.showEditProduct.bind(this);
+        this.closeEditShow = this.closeEditShow.bind(this);
     }
     addProduct(productInformation) {
         this.setState({ products: [...this.state.products, productInformation] });
+    }
+    removeProduct(event) {
+        const productName = event.target.id;
+        this.setState({ products: this.state.products.filter(item => item.name != productName) });
+
+        //this.setState({products:this.state.products.filter(
+        //    function(item) {
+        //        return item.name != productName
+        //    }
+        //)})
+    }
+    showEditProduct(productName) {
+        const productInformation = this.state.products.find(item => item.name == productName);
+        this.setState({
+
+            editedProductInformation: productInformation,
+            isShowEdit: true
+        });
+    }
+    closeEditShow() {
+        this.setState({ isShowEdit: false });
     }
     render() {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -21777,9 +21805,15 @@ class ProductManager extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compo
             null,
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__AddProduct__["a" /* default */], {
                 addProduct: this.addProduct }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__EditProduct__["a" /* default */], {
+                isShow: this.state.isShowEdit,
+                closeModal: this.closeEditShow,
+                productInformation: this.state.editedProductInformation }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__PageTitle__["a" /* default */], null),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ShowProducts__["a" /* default */], {
-                productList: this.state.products })
+                productList: this.state.products,
+                removeProduct: this.removeProduct,
+                showEditModal: this.showEditProduct })
         );
     }
 }
@@ -21935,7 +21969,7 @@ class ShowProducts extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
                 return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'product', key: "productNO_" + counter },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: product.imagePath }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: product.imagePath, onClick: this.props.showEditModal.bind(null, product.name) }),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'h4',
                         { className: 'title' },
@@ -21945,6 +21979,11 @@ class ShowProducts extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
                         'div',
                         { className: 'price' },
                         product.price
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.props.removeProduct, id: product.name },
+                        'Delete'
                     )
                 );
             })
@@ -22328,6 +22367,106 @@ function updateLink(linkElement, obj) {
 	if(oldSrc)
 		URL.revokeObjectURL(oldSrc);
 }
+
+
+/***/ }),
+/* 189 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_css__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__styles_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__styles_css__);
+
+
+
+class ClassName extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+    constructor() {
+        super();
+        this.state = {
+            formValues: { name: "", price: "", imagePath: "" }
+        };
+        //
+        this.changeFieldHandler = this.changeFieldHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
+    }
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        console.log(this.state);
+        //if(nextProps.productInformation.name != this.state.formValues.name){
+        this.setState({ formValues: nextProps.formValues });
+        //}
+    }
+    changeFieldHandler(event) {
+        const data = { [event.target.id]: event.target.value };
+        this.setState({ formValues: Object.assign({}, this.state.formValues, data) });
+    }
+    submitHandler() {
+        this.toggleModal();
+        this.props.addProduct(this.state.formValues);
+    }
+    render() {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'modal-container', style: { display: this.props.isShow ? "block" : "none" } },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'content' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'i',
+                        { onClick: this.props.closeModal },
+                        'X'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'h3',
+                        null,
+                        'Product information'
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'formElement' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'name' },
+                            'Name :'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Name... ', id: 'name', onChange: this.changeFieldHandler, value: this.state.formValues.name })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'formElement' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'price' },
+                            'Price :'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Price... ', id: 'price', onChange: this.changeFieldHandler, value: this.state.formValues.price })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'span',
+                        { className: 'formElement' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'label',
+                            { htmlFor: 'imagePath' },
+                            'Image :'
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: 'Image path... ', id: 'imagePath', onChange: this.changeFieldHandler, value: this.state.formValues.imagePath })
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { onClick: this.submitHandler },
+                        'SAVE'
+                    )
+                )
+            )
+        );
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ClassName;
 
 
 /***/ })

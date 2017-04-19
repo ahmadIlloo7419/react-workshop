@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 var mock = require('superagent-mocker')(request);
+import CommentItem from './CommentItem';
 mock.get('/comments', function(req) {
     return {
         comments: [

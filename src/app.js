@@ -2,22 +2,23 @@
  * Created by ahmad on 2/28/2017.
  */
 import React from 'react';
-import {render} from 'react-dom';
-//import RegisterForm from './forms/RegisterForm';
-import ProductManager from './productManager/ProductManager';
+import {Link} from 'react-router';
+import Navigation from './navigation/Navigation';
 
-class App extends React.Component {
-    constructor() {
-        super();
+export default class App extends React.Component {
+    static propTypes: {
+        children: React.PropTypes.element
+    }
+    constructor(props) {
+        super(props);
     }
 
     render() {
         return (
-            <div>
-               <ProductManager />
-            </div>
+           <div>
+               <Navigation />
+               {this.props.children}
+           </div>
         );
     }
-
 }
-render(<App />, document.getElementById("app"));

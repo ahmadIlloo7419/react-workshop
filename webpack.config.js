@@ -1,10 +1,16 @@
 /**
  * Created by ahmad on 2/28/2017.
  */
+var path = require('path');
 module.exports = {
-    entry : "./src/app.js" ,
+    entry : "./index.js" ,
     output : {
-        filename : "./index.js"
+        filename : "./dist/index.js"
+    },
+    devServer: {
+        inline: true,
+        contentBase: path.join(__dirname, "dist"),
+        port: 9000
     },
     module: {
         rules: [

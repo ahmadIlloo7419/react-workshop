@@ -17,6 +17,7 @@ export default class BeforeRouter extends React.Component {
                 <button onClick={this.callcmp.bind(this, "A")}>call component a</button>
                 <button onClick={this.callcmp.bind(this, "B")}>call component b</button>
                 {
+                    // div app
                     React.createElement(require(`./${this.state.currentcmp}`).default)
                 }
             </div>

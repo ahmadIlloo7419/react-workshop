@@ -16,11 +16,16 @@ mock.get('/comments', function(req) {
 export default class Comments extends React.Component {
     constructor(){
         super();
+        this.state = {
+            comments:[]
+        }
     }
     componentDidMount(){
+        //const self =this;
         request
             .get('/comments')
-            .end(function(err, data) {
+            .end((err, data) => {
+                this.setState({comments:data.comments});
                 console.log(data); // { id: 1, content: 'Hello World', headers: { 'x-custom-header': 'value of header' } }
             })
         ;
@@ -28,7 +33,17 @@ export default class Comments extends React.Component {
     render() {
         return (
             <div>
-                this is comment cmp
+                {
+                    this.state.comments.map(
+                        (comment,counter)=>{
+                            return (
+                              <CommentItem
+                                    key={`commentItemNo__${counter}`}
+                                    data={comment}/>
+                            );
+                        }
+                    )
+                }
             </div>
         );
     }

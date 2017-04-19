@@ -17,6 +17,7 @@ import App from './src/app';
 import BeforeRouter from './src/beforeRouter/BeforeRouter'
 import NotFound from './src/NotFound';
 import Slider from './src/slider/Slider';
+import Comments from './src/comments/Comments';
 
 render(<Router history={browserHistory}>
     <Route path="/" component={App}>
@@ -25,6 +26,7 @@ render(<Router history={browserHistory}>
         <Route path="register" component={RegisterForm} />
         <Route path="before-route" component={BeforeRouter} />
         <Route path="slider" component={Slider} />
+        <Route path="comments" component={Comments} />
         <Route path="*"  component={NotFound} />
     </Route>
 </Router>, document.getElementById("app"));

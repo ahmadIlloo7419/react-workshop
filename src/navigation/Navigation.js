@@ -11,6 +11,7 @@ export default class Navigation extends React.Component {
                 <Link to="/product-manager" className="navItem">Product Manager</Link>
                 <Link to="/before-route" className="navItem">before router</Link>
                 <Link to="/slider" className="navItem">slider</Link>
+                <Link to="/comments" className="navItem">comments</Link>
             </div>
         );
     }

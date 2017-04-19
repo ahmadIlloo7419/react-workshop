@@ -2,11 +2,14 @@ import React from 'react';
 import {Link} from 'react-router';
 
 export default class HomePage extends React.Component {
+    constructor() {
+        super();
+        this.state = {}
+    }
     render() {
-        alert('home')
         return (
             <div>
-                    <Link to="product-manger" >product manger page </Link>
+                  home page !!!
             </div>
         );
     }

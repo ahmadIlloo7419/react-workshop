@@ -6,19 +6,23 @@ import {render} from 'react-dom';
 import {
     Router ,
     Route,
-    browserHistory
+    browserHistory,
+    IndexRoute
 }   from 'react-router';
-import routes from './src/routes';
 //
 import HomePage from './src/Home';
 import ProductManager from './src/productManager/ProductManager';
 import RegisterForm from './src/forms/RegisterForm';
 import App from './src/app';
+import BeforeRouter from './src/beforeRouter/BeforeRouter'
+import NotFound from './src/NotFound';
 
 render(<Router history={browserHistory}>
     <Route path="/" component={App}>
+        <IndexRoute component={HomePage} />
         <Route path="product-manager" component={ProductManager} />
         <Route path="register" component={RegisterForm} />
-        <Route path="*"  component={HomePage} />
+        <Route path="before-route" component={BeforeRouter} />
+        <Route path="*"  component={NotFound} />
     </Route>
 </Router>, document.getElementById("app"));
